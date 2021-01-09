@@ -16,7 +16,7 @@ public protocol Peepable {
 
 public struct Peep {
     public static func play(sound: Peepable?) {
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .duckOthers)
+        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: .duckOthers)
         sound?.play()
     }
 }
@@ -99,6 +99,9 @@ extension URL: Peepable {
         let item = AVPlayerItem(url: self)
         player.insert(item, after: nil)
         player.play()
+        DispatchQueue.main.asyncAfter(deadline: .now() + item.duration.seconds) {
+            try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: .mixWithOthers)
+        }
     }
 }
 
