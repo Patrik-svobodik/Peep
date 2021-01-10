@@ -15,8 +15,10 @@ public protocol Peepable {
 }
 
 public struct Peep {
-    public static func play(sound: Peepable?) {
-        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default, options: .duckOthers)
+    public static func play(sound: Peepable?, setCategory: Bool = true, category: AVAudioSession.Category = .ambient, options: AVAudioSession.CategoryOptions = .mixWithOthers) {
+        if setCategory {
+            try? AVAudioSession.sharedInstance().setCategory(category, mode: .default, options: options)
+        }
         sound?.play()
     }
 }
