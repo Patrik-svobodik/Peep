@@ -104,6 +104,6 @@ extension URL: Peepable {
     }
 }
 
-extension AVQueuePlayer {
+public extension AVQueuePlayer {
     static let shared = AVQueuePlayer()
 }
